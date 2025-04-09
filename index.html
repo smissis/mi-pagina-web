@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Carta de Amor</title>
+    <style>
+        :root {
+            --primary-color: #ff4b6e;
+            --secondary-color: #ffd1d1;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--secondary-color), #fff);
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .letter-container {
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transform-style: preserve-3d;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .heart {
+            position: fixed;
+            font-size: 20px;
+            color: var(--primary-color);
+            pointer-events: none;
+            animation: heartFloat 4s ease-in-out infinite;
+            z-index: 1000;
+        }
+
+        @keyframes heartFloat {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(720deg) scale(0);
+                opacity: 0;
+            }
+        }
+
+        .signature {
+            text-align: right;
+            font-style: italic;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .letter-container {
+                padding: 20px;
+                margin: 10px;
+            }
+            h1 { font-size: 2em; }
+            p { font-size: 1em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="letter-container">
+        <h1>Mi Amor Eterno</h1>
+        
+        <p>Mi querida princesa,</p>
+        
+        <p>Cada día que pasa, mi amor por ti crece más y más. Eres el sol que ilumina mis mañanas y la luna que acompaña mis noches. Tu presencia en mi vida ha traído una felicidad que nunca imaginé posible.</p>
+        
+        <p>Recuerdo perfectamente el momento en que te conocí. Fue como si el tiempo se detuviera y el mundo entero desapareciera, dejándonos solo a nosotros dos. Desde ese instante, supe que eras especial.</p>
+        
+        <p>Tu sonrisa tiene el poder de alegrar hasta el día más gris, y tu risa es la melodía más hermosa que he escuchado. Me enamoro cada día más de tu forma de ser, de tu bondad, de tu fortaleza y de tu dulzura.</p>
+        
+        <p>Contigo he aprendido que el amor verdadero no es solo un sentimiento, sino una decisión diaria de elegirse mutuamente, de apoyarse, de crecer juntos y de construir un futuro común.</p>
+        
+        <p>Amo la forma en que tus ojos brillan cuando hablas de tus sueños, cómo tu rostro se ilumina cuando estás emocionada, y cómo tu corazón tiene tanto amor para dar. Eres mi inspiración y mi motivación para ser mejor cada día.</p>
+        
+        <p>Gracias por compartir tu vida conmigo, por tu paciencia, por tu comprensión y por tu amor incondicional. Prometo estar siempre a tu lado, en los buenos y malos momentos, celebrando nuestras alegrías y superando juntos cualquier obstáculo.</p>
+        
+        <p>Eres mi presente y mi futuro, mi compañera de vida, mi mejor amiga y el amor de mi vida. No puedo imaginar un futuro donde no estés tú.</p>
+        
+        <div class="signature">
+            <p>Con todo mi amor,<br>Tu amor eterno</p>
+        </div>
+    </div>
+
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 4000);
+        }
+
+        // Create hearts periodically
+        setInterval(createHeart, 300);
+
+        // Add animation delays to paragraphs
+        document.querySelectorAll('p').forEach((p, index) => {
+            p.style.animationDelay = (index * 0.3) + 's';
+        });
+
+        // Add hover effect to container
+        const container = document.querySelector('.letter-container');
+        container.addEventListener('mousemove', (e) => {
+            const rect = container.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const rotateX = (y / rect.height - 0.5) * 10;
+            const rotateY = (x / rect.width - 0.5) * 10;
+            
+            container.style.transform = `perspective(1000px) rotateX(${-rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        container.addEventListener('mouseleave', () => {
+            container.style.transform = 'none';
+        });
+    </script>
+</body>
+</html>
